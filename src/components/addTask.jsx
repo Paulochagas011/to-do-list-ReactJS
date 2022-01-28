@@ -5,18 +5,27 @@ class AddTask extends Component {
     constructor() {
         super();
         this.state = {
-
+            title: '',
         };
+        this.handleInput = this.handleInput.bind(this);
     }
     
+    handleInput(event) {
+        this.setState({
+            title: event.target.value,
+        });
+    }
     
     render(){
+        const {title} = this.state;
+        const {onCreate} = this.props;
         return(
-            <form>
-              <input type='text' onChange={(event) => console.log(event.target.value)}/>
-              <button type='button'>Adicionar tarefa</button>
+            <form onSubmit={(event) => onCreate(event, this.state)}>
+              <input type='text' value={title} onChange={this.handleInput}/>
+              <button type='submit'>Adicionar tarefa</button>
           </form>
         );
     }
 }
- export default AddTask;
+
+export default AddTask;
